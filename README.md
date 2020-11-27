@@ -20,3 +20,28 @@ for newPosition, probability in newDistribution.items():
   allPossible[newPosition] += (self.beliefs[position] * probability)
 ```
 >3. Exact Inference Full Test
+- giả sử các bóng ma di chuyển độc lập, tìm vị trí con ma gần nhất:
+```
+distance = 100000000000
+        ghost = None
+        returnAction = None
+        for d in livingGhostPositionDistributions:
+            tempGhost = d.argMax()
+            tempDist = self.distancer.getDistance(pacmanPosition, tempGhost)
+            if tempDist < distance:
+                ghost = tempGhost
+                distance = tempDist
+```
+- tìm kiếm các con ma còn lại bằng thuật toán trên:
+```
+distance = 100000000000
+        for act in legal:
+            tempDist = self.distancer.getDistance(
+                ghost, Actions.getSuccessor(pacmanPosition, act))
+            if tempDist < distance:
+                distance = tempDist
+                returnAction = act
+        return returnAction
+```
+>4. Approximate Inference
+- 
